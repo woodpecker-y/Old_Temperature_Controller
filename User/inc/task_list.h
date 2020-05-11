@@ -1,0 +1,31 @@
+#ifndef _TASK_LIST_H
+#define _TASK_LIST_H
+//#include "task_reader.h"
+//#include "task_key.h"
+//#include "task_beep.h"
+//#include "task_motor.h"
+//#include "task_config.h"
+//#include "task_comm.h"
+//#include "task_power.h"
+#include "task_adc.h"
+#include "task_key.h"
+#include "task_disp.h"
+#include "menu.h"
+#include "task_report.h"
+#include "task_config.h"
+#include "task_rf.h"
+#include "task_ds18b20.h"
+
+// 结构体数组赋值
+TaskItem_t task_list[] = {
+    {1, task_disp_proc},
+    {2, task_key_proc},
+    {3, task_adc_proc},
+    {4, task_report_proc},
+    {5, task_rf_proc},
+    {6, task_config_proc},
+    {7, task_18b20_proc},
+
+};
+
+#endif

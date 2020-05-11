@@ -1,0 +1,162 @@
+[DebugChecksum]
+Checksum=-1162917552
+[DisAssemblyWindow]
+NumStates=_ 1
+State 1=_ 1
+[InstructionProfiling]
+Enabled=_ 0
+[CodeCoverage]
+Enabled=_ 0
+[StackPlugin]
+Enabled=1
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnHow=0
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[CallStackLog]
+Enabled=0
+[DriverProfiling]
+Enabled=0
+Mode=1
+Graph=0
+Symbiont=0
+[InterruptLog]
+LogEnabled=0
+SumEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+SumSortOrder=0
+[Interrupts]
+Enabled=1
+[MemoryMap]
+Enabled=0
+Base=0
+UseAuto=0
+TypeViolation=1
+UnspecRange=1
+ActionState=1
+[TraceHelper]
+Enabled=0
+ShowSource=1
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[DataSample]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+[Breakpoints]
+Bp0=_ "STD_CODE" "{$PROJ_DIR$}.16.5@1" 0 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\..\WINDOWS\System32}.143.15@1" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$}.398.5@1" 0 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$}.422.5@1" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_DATA" "BSP_COM_SendChar" 0 0 0 3 0 "" 0 ""
+Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\..\WINDOWS\System32}.290.5@1" 0 0 0 0 "" 0 ""
+Bp6=_ "STD_CODE" "{$PROJ_DIR$}.265.5@1" 0 0 0 0 "" 0 ""
+Bp7=_ "STD_CODE" "{$PROJ_DIR$}.282.5@1" 0 0 0 0 "" 0 ""
+Bp8=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\IAR\common\bin}.297.5@1" 0 0 0 0 "" 0 ""
+Bp9=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\BA2012-SRH-0.3.1.161216\BA2012-SRH-0.3.1.161216}.316.5@1" 0 0 0 0 "" 0 ""
+Bp10=_ "STD_CODE" "{$PROJ_DIR$}.148.5@1" 0 0 0 0 "" 0 ""
+Bp11=_ "STD_CODE" "{$PROJ_DIR$\..\..\trunk\BSP\STM8L15x\KEY\bsp_key.c}.167.9@1" 0 0 0 0 "" 0 ""
+Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\sht20.c}.193.5@1" 0 0 0 0 "" 0 ""
+Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\bsp_flash_ext.c}.85.5@1" 0 0 0 0 "" 0 ""
+Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\bsp_flash_ext.c}.221.5@1" 0 0 0 0 "" 0 ""
+Bp15=_ "STD_CODE" "{$PROJ_DIR$}.422.5@1" 0 0 0 0 "" 0 ""
+Bp16=_ "STD_CODE" "{$PROJ_DIR$}.422.5@1" 0 0 0 0 "" 0 ""
+Bp17=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\BA2012-SRH-0.3.1.161216\BA2012-SRH-0.3.1.161216}.87.9@1" 0 0 0 0 "" 0 ""
+Bp18=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\BA2012-SRH-0.3.1.161216\BA2012-SRH-0.3.1.161216}.87.9@1" 0 0 0 0 "" 0 ""
+Bp19=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\BA2012-SRH-0.3.1.161216\BA2012-SRH-0.3.1.161216}.93.9@1" 0 0 0 0 "" 0 ""
+Bp20=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\IAR\common\bin}.170.5@1" 0 0 0 0 "" 0 ""
+Bp21=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\BA2012-SRH-0.3.1.161216\BA2012-SRH-0.3.1.161216}.88.9@1" 0 0 0 0 "" 0 ""
+Bp22=_ "STD_CODE" "{$PROJ_DIR$}.239.9@1" 0 0 0 0 "" 0 ""
+Bp23=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Project\IAR}.38.5@1" 0 0 0 0 "" 0 ""
+Bp24=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Project\IAR}.47.17@1" 0 0 0 0 "" 0 ""
+Bp25=_ "STD_CODE" "{$PROJ_DIR$\..\Lib\include\HAL\eeprom.h}.58.1@1" 0 0 0 0 "" 0 ""
+Bp26=_ "STD_CODE" "{$PROJ_DIR$}.305.9@1" 0 0 0 0 "" 0 ""
+Bp27=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\task_config.c}.350.5@1" 0 0 0 0 "" 0 ""
+Bp28=_ "STD_CODE" "{$PROJ_DIR$}.296.5@1" 0 0 0 0 "" 0 ""
+Bp29=_ "STD_CODE" "{$PROJ_DIR$}.115.9@1" 0 0 0 0 "" 0 ""
+Bp30=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\task_config.c}.350.5@1" 0 0 0 0 "" 0 ""
+Bp31=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\task_config.c}.157.9@1" 0 0 0 0 "" 0 ""
+Bp32=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\bsp_si4432.c}.757.5" 0 0 0 0 "" 0 ""
+Bp33=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\bsp_si4432.c}.757.5" 0 0 0 0 "" 0 ""
+Bp34=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\task_key.c}.199.9" 0 0 0 0 "" 0 ""
+Bp35=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\task_key.c}.195.9" 0 0 0 0 "" 0 ""
+Bp36=_ "STD_CODE" "{$PROJ_DIR$\..\User\inc\adc_bsp.h}.167.1" 0 0 0 0 "" 0 ""
+Bp37=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\bsp_adc_bsp.c}.489.5" 0 0 0 0 "" 0 ""
+Bp38=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\adc_bsp.c}.309.1" 0 0 0 0 "" 0 ""
+Bp39=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\LCD_Driver.c}.1031.3" 0 0 0 0 "" 0 ""
+Bp40=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\LCD_Driver.c}.1273.3" 0 0 0 0 "" 0 ""
+Bp41=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\main.c}.343.5" 1 0 0 0 "" 0 ""
+Bp42=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\main.c}.390.1" 0 0 0 0 "" 0 ""
+Bp43=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\ds18b20.c}.270.3" 0 0 0 0 "" 0 ""
+Bp44=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\ds18b20.c}.270.3" 0 0 0 0 "" 0 ""
+Bp45=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\ds18b20.c}.270.3" 0 0 0 0 "" 0 ""
+Bp46=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\ds18b20.c}.270.3" 0 0 0 0 "" 0 ""
+Bp47=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\ds18b20.c}.161.9" 0 0 0 0 "" 0 ""
+Bp48=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\menu.c}.58.5" 1 0 0 0 "" 0 ""
+Bp49=_ "STD_CODE" "{$PROJ_DIR$\..\User\src\menu.c}.140.5" 1 0 0 0 "" 0 ""
+Count=50
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Aliases]
+A0=_ "C:\Users\LMY\Desktop\室温控制器\程序\tags\BA2012-SRH-0.10.3.170118\User\src\main.c" ""
+A1=_ "C:\Users\LMY\Desktop\室温控制器\程序\tags\BA2012-SRH-0.7.1.161229\BA2012-SRH-0.7.1.161229\User\src\main.c" ""
+A2=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.10.3.170118\User\src\main.c" ""
+A3=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.10.4.170203\User\src\main.c" ""
+A4=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.10.6.170206\User\src\main.c" ""
+A5=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.10.7.170208\User\src\main.c" ""
+A6=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.10.8.170210\User\src\main.c" ""
+A7=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.10.9.170216\User\src\main.c" ""
+A8=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.2.0.161214\BA2012-SRH-0.2.0.161214\User\src\main.c" ""
+A9=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.3.1.161216\BA2012-SRH-0.3.1.161216\User\src\main.c" ""
+A10=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.7.1.161229\BA2012-SRH-0.7.1.161229\User\src\main.c" ""
+A11=_ "C:\Users\LMY\Desktop\室温控制器\程序\trunk\BA2012-SRH-0.9.2.170113\BA2012-SRH-0.9.2.170113\User\src\main.c" ""
+A12=_ "C:\Users\Smile\Desktop\ADF-test-0.1.7.160823\User\src\main.c" ""
+A13=_ "C:\Users\Smile\Desktop\ADF\BSP\STM8L15x\GPIO\bsp_gpio.c" ""
+A14=_ "C:\Users\Smile\Desktop\BA2012-SRH-0.9.3.170117\BA2012-SRH-0.9.3.170117\User\src\main.c" ""
+A15=_ "E:\1、工作\1、产品代码\室温控制器\程序\trunk\BA2012-SRH-0.15.1.170720\User\src\protocol.c" ""
+A16=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\BSP\STM8L15x\DELAY\delay.c" ""
+A17=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\BSP\STM8L15x\GPIO\bsp_gpio.c" ""
+A18=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\BSP\STM8L15x\KEY\bsp_key.c" ""
+A19=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\BSP\STM8L15x\RTC\bsp_rtc.c" ""
+A20=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\BSP\STM8L15x\SI4432\si4432.c" ""
+A21=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\BSP\STM8L15x\Systimer\bsp_systimer.c" ""
+A22=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\BSP\STM8L15x\UART\bsp_com.c" ""
+A23=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\HAL\src\eeprom.c" ""
+A24=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\HAL\src\lcd.c" ""
+A25=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\HAL\src\printf.c" ""
+A26=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_adc.c" ""
+A27=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_clk.c" ""
+A28=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_exti.c" ""
+A29=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_lcd.c" ""
+A30=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_rtc.c" ""
+A31=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_syscfg.c" ""
+A32=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Libraries\STM8L15x_StdPeriph_Driver\src\stm8l15x_usart.c" ""
+A33=_ "E:\SyncDisk\工作区\1.代码仓库\3.ADF\trunk\Utili\src\utili.c" ""
+Count=34
+SuppressDialog=1
+[DebuggerSettings]
+DisableInterruptsWhenStepping=0

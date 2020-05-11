@@ -1,0 +1,254 @@
+#include <stdio.h>
+#include <math.h>
+#include "adf.h"
+#include "sysparams.h"
+#include "board.h"
+#include "task_adc.h"
+#include "delay.h"
+#include "disp.h"
+#include "menu.h"
+#include "task_disp.h"
+#include "task_report.h"
+#include "cj188.h"
+#include "gpio.h"
+
+
+/* 定义结构体数组 */
+__far const TEMP_TABLE temp_table[] = {
+    {-100,27664},{-90,26202},{-80,24826},{-70,23531},{-60,22311},{-50,21161},{-40,20078},{-30,19057},{-20,18093},{-10,17184},
+    {0,16326},{10,15516},{20,14751},{30,14028},{40,13345},{50,12699},{60,12088},{70,11509},{80,10962},{90,10444},{100,9953},
+    {110,9488},{120,9048},{130,8630},{140,8234},{150,7858},{160,7502},{170,7164},{180,6842},{190,6537},{200,6248},{210,5972},
+    {220,5711},{230,5462},{240,5225},{250,5000},{260,4786},{270,4582},{280,4388},{290,4203},{300,4027},{310,3859},{320,3699},
+    {330,3547},{340,3401},{350,3262},{360,3130},{370,3004},{380,2883},{390,2768},{400,2658},{410,2553},{420,2453},{430,2357},
+    {440,2266},{450,2178}
+};
+
+//__far const TEMP_TABLE temp_table[] = {
+//    2799999, 2638976, 2490181, 2352865, 2226276, 2144699, 2034380, 1930172, 1831747, 1738790,
+//    1651000, 1568085, 1489771, 1415792, 1345901, 1279859, 1217443, 1158441, 1102652, 1049888,
+//    999973,  952737,  908026,  865690,  825591,  787598,  751590,  717452,  685070,  654358, 
+//    625207,  597532,  571250,  546283,  522556,  500000,  478551,  458148,  438733,  420252,  
+//    402656,  385896,  369928,  354710,  340201,  326366,  313169,  300577,  288558,  277084, 
+//    266126,  255660,  245659,  236101,  226965,  218228,  209872,  201879,  194230,  186909, 
+//    179900
+//};
+
+static TASK_ADC_HANDLER s_task_adc_handler;
+
+/*! \brief
+*  adc主进程
+*/
+void task_adc_proc(void)
+{
+    //    s_task_adc_handler.adc_timer++;
+    switch(s_task_adc_handler.sts)
+    {
+    case E_TASK_ADC_IDLE:      // 空闲状态
+        task_adc_schedule();
+        //        if (s_task_adc_handler.adc_timer >= QUARTER_HOUR)
+        //        {
+        //            s_task_adc_handler.sts = E_TASK_ADC_READY;
+        //            s_task_adc_handler.adc_timer = 0;  
+        //        }
+        break;
+    case E_TASK_ADC_READY:    //准备采集阶段
+        adc_init(ADC_BATT);   //adc电源初始化
+        adc_init(ADC_TEMP);   //adc温度初始化
+        //        adc_sample_init(ADC_TEMP);    //adc温度采集初始化
+        //        adc_sample_init(ADC_BATT);    //adc温度采集初始化
+        //delay_us(5000);
+        s_task_adc_handler.sts = E_TASK_ADC_COLLECTION;
+        break;
+    case E_TASK_ADC_COLLECTION:   //采集阶段
+        temp_sample();
+        batter_sample();
+        s_task_adc_handler.sts = E_TASK_ADC_FINISH;
+        break;
+    case E_TASK_ADC_FINISH:     //完成阶段
+        task_lcd_triggered(MENU_MAIN);//为了让屏幕实时刷新，多次触发LCD刷新的函数
+        //        adc_sample_finish(ADC_BATT);
+        //        adc_sample_finish(ADC_TEMP);
+        adc_close(ADC_BATT);
+        adc_close(ADC_TEMP);
+        //GPIO_Init(GPIOC, GPIO_Pin_0, GPIO_Mode_Out_PP_High_Slow );
+        s_task_adc_handler.sts = E_TASK_ADC_IDLE; 
+        break;
+    default:
+        break;
+    }
+    
+}         
+
+/*! \brief
+*  利用电阻来  计算温度
+*/
+u16 task_sample_result_temp(u16 r_temp)//, u16 r_temp_ref)   //返回阻值
+{
+    u8 i = 0;
+    //s16 a=0, b=0, temp_cal=0;
+    s16 temp_cal=0;
+    //printf("r_temp = %u\r\n", r_temp);
+    for (i=0; i<sizeof(temp_table)/sizeof(temp_table[0]); ++i)   //中间为取有多少个数组
+    {
+        if (r_temp > temp_table[i].r && r_temp < temp_table[i-1].r)  //计算出来的电阻和数组表中的阻值进行比较
+        {
+            break;
+        }
+    } 
+    
+    temp_cal = temp_table[i-1].temp + 10*(temp_table[i-1].r-r_temp)/(temp_table[i-1].r-temp_table[i].r);  //由阻值计算温度的算法
+    //temp_cal = -100 + i*10 + 10*(temp_table[i].r - r_temp)/(temp_table[i].r-temp_table[i+1].r);
+    //    a = temp_cal/10;
+    //    b = temp_cal%10;
+    //    
+    //    printf("Temp value=%u.%u\r\n", a,b);
+    //    
+    //    led_on(LED_PWR);
+    //    delay_ms(200);
+    //    led_off(LED_PWR);
+    //    delay_ms(200);
+    
+    return temp_cal; 
+}
+
+/*! \brief
+*  adc-电量采集  
+*/
+void batter_sample(void)
+{
+    u16 adc_batt_value_sum = 0;
+    u8 i = 0;
+    u16 adc_batt_value = 0;
+    
+    adc_sample_init(ADC_BATT);    //adc温度采集初始化
+    delay_us(8000);
+    
+    for(i=0; i<8; i++)
+    {
+        adc_batt_value_sum += adc_sample_once(ADC_BATT);    
+        //printf("adc_sample_once=%d\r\n", adc_sample_once);
+    }
+    //printf("adc_value_sum=%d\r\n", adc_value_sum);
+    adc_batt_value = adc_batt_value_sum/8;   //取8次引脚电压取平均值
+    g_run_params.batt_lvl = adc_batt_value;  // 电池级数
+#ifdef TASK_PRINTF
+    printf("adc_batt_value=%d\r\n", adc_batt_value);
+#endif
+    
+    adc_sample_finish(ADC_BATT);  
+    
+}
+
+/*! \brief
+*  adc-温度采集  
+*/
+void temp_sample(void)
+{
+    u16 a,b/*,c,d */= 0;
+    u16 adc_temp_value_sum = 0;
+    u8 j = 0;
+    u16 adc_temp_value = 0;
+    
+    adc_sample_init(ADC_TEMP);    //adc温度采集初始化
+    delay_us(8000);
+    
+    for(j=0; j<8; j++)
+    {
+        adc_temp_value_sum += adc_sample_once(ADC_TEMP);    
+        //printf("adc_sample_once=%d\r\n", adc_sample_once);
+    }
+    adc_temp_value = adc_temp_value_sum/8;   //取8次引脚温度取平均值
+    g_run_params.temp = task_sample_result_temp((u16)((u32)adc_temp_value*(u32)TEMP_MEAS_R/(4095-adc_temp_value)));//固定算法//, (u16)((u32)adc_temp_ref*(u32)TEMP_MEAS_R/(4095-adc_temp_ref)));
+    g_run_params.temp = g_run_params.temp+18;
+    //d = g_run_params.temp_last - g_run_params.temp; 
+    //c = abs(d);
+    //printf("g_run_params.temp_last - g_run_params.temp = %d\r\n" ,c);
+    if (g_run_params.temp_last >= g_run_params.temp)
+    {
+        if(g_run_params.temp_last - g_run_params.temp >= 10)
+        {
+            task_report_triggered(CTRL_CODE_REPORT);
+        }        
+    }
+    else
+    {
+        if(g_run_params.temp - g_run_params.temp_last >= 10)
+        {
+            task_report_triggered(CTRL_CODE_REPORT);
+        }         
+    }
+    //    if(c >= 10)
+    //    {
+    //        task_report_triggered(CTRL_CODE_REPORT);
+    //    }
+    g_run_params.temp_last = g_run_params.temp;
+    //t = task_sample_result_temp((u32)(5.0900*adc_temp_value/(4095-adc_temp_value)*10*10000));  
+    //disp_temp_room(g_run_params.temp);
+    //disp_update();
+    a = g_run_params.temp/10;
+    b = g_run_params.temp%10;
+#ifdef TASK_PRINTF
+    printf("Temp value=%u.%u\r\n", a,b);
+#endif
+    //printf("adc_temp_value=%d\r\n", t);
+    
+    adc_sample_finish(ADC_TEMP);      
+}
+
+/*! \brief
+*  adc采集初始化，上电采集温度和电池电量     
+*/
+void task_adc_init(void)
+{
+    s_task_adc_handler.adc_singleslow_timer = QUARTER_HOUR-1;
+}
+
+/*! \brief
+*  adc触发函数     
+*/
+void task_adc_triggered(void)
+{
+    s_task_adc_handler.sts = E_TASK_ADC_READY;  
+}
+
+/*! \brief
+*  adc采样周期转换函数     
+*/
+void task_adc_schedule(void)
+{
+    //printf("g_run_params.adc_keytrigger =%d\r\n", g_run_params.adc_keytrigger);
+    if(g_run_params.adc_keytrigger == 1)
+    {
+        s_task_adc_handler.adc_keytrigger_timer++;
+        if(s_task_adc_handler.adc_keytrigger_timer <= FIVE_MIN)
+        {
+            s_task_adc_handler.adc_singlefast_timer++;
+            if(s_task_adc_handler.adc_singlefast_timer >= TWO_SECOND)
+            {
+                s_task_adc_handler.sts = E_TASK_ADC_READY;
+                s_task_adc_handler.adc_singlefast_timer = 0;
+            }
+        }
+        else
+        {
+            g_run_params.adc_keytrigger = 0;
+            s_task_adc_handler.adc_keytrigger_timer = 0;
+        }
+    }
+    else
+    {
+        s_task_adc_handler.adc_singleslow_timer++;
+        if(s_task_adc_handler.adc_singleslow_timer >= QUARTER_HOUR)
+        {
+            s_task_adc_handler.sts = E_TASK_ADC_READY;
+            s_task_adc_handler.adc_singleslow_timer = 0;
+        }
+    }
+}
+
+void task_adc_timereset(void)
+{
+    s_task_adc_handler.adc_singleslow_timer = 0;
+    s_task_adc_handler.adc_keytrigger_timer = 0;
+    s_task_adc_handler.adc_singlefast_timer = 0;
+}
